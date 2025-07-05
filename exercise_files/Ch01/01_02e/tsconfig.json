@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
         "outDir": "build",
+        // esnext just for type checking
         "target": "esnext",
-        "noEmit": true
+        // Just for type checking and tsc does not compile any ts file to js file
+        "noEmit": false
     },
     "include": ["src/**/*"]
 }
