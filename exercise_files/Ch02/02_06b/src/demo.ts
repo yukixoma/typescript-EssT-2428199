@@ -3,9 +3,15 @@ interface Contact {
     name: string;
 }
 
-function clone(source: Contact): Contact {
+interface UserContact {
+    id: number;
+    name: string;
+    usernam: string;
+}
+
+function clone<T1, T2 extends T1>(source: T1): T2 {
     return Object.apply({}, source);
 }
 
 const a: Contact = { id: 123, name: "Homer Simpson" };
-const b = clone(a)
+const b = clone<Contact,UserContact>(a)
