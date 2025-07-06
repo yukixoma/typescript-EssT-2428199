@@ -16,5 +16,9 @@ let primaryContact: Contact = {
     birthDate: new Date("01-01-1980"),
     id: 12345,
     name: "Jamie Johnson",
-    postalCode: 
+    line1: "",
+    line2: "",
+    province: "Tochigi",
+    region: "Japan",
+    postalCode: "320-0035",
 }
