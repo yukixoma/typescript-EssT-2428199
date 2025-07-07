@@ -14,3 +14,9 @@ let primaryContact: Contact = {
     name: "Jamie Johnson",
     status: "active"
 }
+
+function getValue<T, U extends keyof T>(object:T, propertyName: U) {
+    return object[propertyName];
+}
+
+let contactName = getValue(primaryContact, "name");
