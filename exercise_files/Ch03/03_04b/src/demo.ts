@@ -34,3 +34,14 @@ interface ContactEvents {
 function getValue<T, U extends keyof T>(source: T, propertyName: U) {
     return source[propertyName];
 }
+
+function handleEvent<T extends keyof ContactEvents>(
+    eventName: T, 
+    handler: (evt : ContactEvents[T]) => void
+) {
+    if(eventName === "statusChanged") {
+        handler({contactId: 1, oldStatus: "active", newStatus: "inactive"})
+    }
+}
+
+handleEvent("statusChanged", evt => evt)
