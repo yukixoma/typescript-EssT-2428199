@@ -13,10 +13,22 @@ const currentUser = {
     }
 }
 
+function authorize(target: any, property: any, descriptor: PropertyDescriptor) {
+    const wrapper = descriptor.value;
+    
+    descriptor.value = function () {
+        if(!currentUser.isAuthenticated) {
+            throw new Error("User is not authenticated!");
+        }
+
+        return wrapper.apply(this, arguments)
+    }
+}
+
 class ContactRepository {
     private contacts: Contact[] = [];
 
-    @authorize("ContactViewer")
+    @authorize
     getContactById(id: number): Contact | null {
         if (!currentUser.isInRole("ContactViewer")) {
             throw Error("User not authorized to execute this action");
@@ -26,7 +38,7 @@ class ContactRepository {
         return contact;
     }
 
-    @authorize("ContactEditor")
+    @authorize
     save(contact: Contact): void {
         const existing = this.getContactById(contact.id);
 
