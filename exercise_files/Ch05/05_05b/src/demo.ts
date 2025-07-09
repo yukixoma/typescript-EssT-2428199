@@ -50,9 +50,26 @@ function singleton<T extends { new(...args: any[]): {} }>(constructor: T) {
     }
 }
 
+function auditable (target: object, key: string | symbol) {
+    // Get initial value (before the decorator applied)
+    let value = target[key];
+
+    // Overwrite with custom get, set 
+    Object.defineProperty(target, key, {
+        get: () => value,
+        set: (newValue) => {
+            console.log(`${key.toString()} has changed: `, newValue);
+            value = newValue;
+        },
+        enumerable: true,
+        configurable: true
+    })
+}
+
 @freeze
 @singleton
 class ContactRepository {
+    @auditable
     private contacts: Contact[] = [];
 
     @authorize("ContactViewer")
